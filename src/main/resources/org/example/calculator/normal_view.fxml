@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalculatorController.java">
     <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
     </padding>
     <effect>
         <BoxBlur height="0.0" iterations="0" width="0.0" />
     </effect>
-    <Button layoutX="28.0" layoutY="436.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="80.0" text="±" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0">
+    <Button fx:id="plusMinusButton" layoutX="28.0" layoutY="436.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="80.0" text="±" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0">
         <font>
           <Font size="20.0" />
         </font>
