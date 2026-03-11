@@ -2,7 +2,6 @@ package org.example.calculator;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -15,7 +14,6 @@ public class Calculator extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("normal_view.fxml"));
-        Group root = new Group();
         Scene scene = new Scene(loader.load(), Color.rgb(32, 32, 32));
         Image icon = new Image(Objects.requireNonNull(getClass().getResource("/icons/CalculatorAppList.scale-150.png")).toExternalForm());
         stage.getIcons().add(icon);
