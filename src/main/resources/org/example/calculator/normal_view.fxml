@@ -24,7 +24,7 @@
           <Font size="20.0" />
         </font>
     </Button>
-    <Button layoutX="172.0" layoutY="459.0" mnemonicParsing="false" onAction="#pressComma" prefHeight="49.0" prefWidth="80.0" text="," AnchorPane.bottomAnchor="0.0">
+    <Button fx:id="commaButton" layoutX="172.0" layoutY="459.0" mnemonicParsing="false" onAction="#pressComma" prefHeight="49.0" prefWidth="80.0" text="," AnchorPane.bottomAnchor="0.0">
         <font>
           <Font size="20.0" />
         </font>
@@ -98,7 +98,7 @@
           <Font size="20.0" />
         </font>
     </Button>
-    <Button layoutX="256.0" layoutY="299.0" mnemonicParsing="false" onAction="#pressMultiply" prefHeight="49.0" prefWidth="80.0" text="×" AnchorPane.bottomAnchor="159.0" AnchorPane.rightAnchor="1.0">
+    <Button layoutX="256.0" layoutY="299.0" mnemonicParsing="false" onAction="#pressMultiply" prefHeight="49.0" prefWidth="80.0" text="×" textAlignment="RIGHT" AnchorPane.bottomAnchor="159.0" AnchorPane.rightAnchor="1.0">
         <padding>
           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
@@ -152,9 +152,14 @@
           <Font size="20.0" />
         </font>
     </Button>
-    <Label fx:id="label" alignment="CENTER_RIGHT" layoutX="1.0" layoutY="1.0" prefHeight="191.0" prefWidth="337.0" text="0" textAlignment="RIGHT">
+    <Label fx:id="currentLabel" alignment="CENTER_RIGHT" layoutX="1.0" layoutY="32.0" prefHeight="160.0" prefWidth="337.0" text="0" textAlignment="RIGHT" wrapText="true">
         <font>
           <Font size="36.0" />
         </font>
     </Label>
+   <Label fx:id="previousLabel" alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="-2.0" prefHeight="38.0" prefWidth="340.0">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
 </AnchorPane>

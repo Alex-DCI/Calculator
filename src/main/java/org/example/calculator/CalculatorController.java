@@ -1,137 +1,204 @@
 package org.example.calculator;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class CalculatorController {
-    @FXML
-    Label label;
-    BigDecimal total = new BigDecimal(0);
-    String totalString = "0";
+
+    private String currentOutput = "0";
+    private final char DECIMAL_SEPARATOR = new DecimalFormatSymbols(Locale.getDefault()).getDecimalSeparator();
+    private boolean isNegative = false;
+    private boolean reset = false;
 
     @FXML
-    private void press1(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.ONE);
-        totalString = total.toString();
-        label.setText(totalString);
-    }
+    Label currentLabel, previousLabel;
+
     @FXML
-    private void press2(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.TWO);
-        totalString = total.toString();
-        label.setText(totalString);
-    }
+    Button commaButton;
+
     @FXML
-    private void press3(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(3L));
-        totalString = total.toString();
-        label.setText(totalString);
+    public void initialize() {
+        commaButton.setText(String.valueOf(DECIMAL_SEPARATOR));
     }
+
     @FXML
-    private void press4(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(4L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press1() {
+        updateCurrentLabel('1');
     }
+
     @FXML
-    private void press5(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(5L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press2() {
+        updateCurrentLabel('2');
     }
+
     @FXML
-    private void press6(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(6L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press3() {
+        updateCurrentLabel('3');
     }
+
     @FXML
-    private void press7(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(7L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press4() {
+        updateCurrentLabel('4');
     }
+
     @FXML
-    private void press8(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(8L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press5() {
+        updateCurrentLabel('5');
     }
+
     @FXML
-    private void press9(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN).add(BigDecimal.valueOf(9L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press6() {
+        updateCurrentLabel('6');
     }
+
     @FXML
-    private void press0(ActionEvent event) {
-        total = total.multiply(BigDecimal.TEN);
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press7() {
+        updateCurrentLabel('7');
     }
+
     @FXML
-    private void pressPlusMinus(ActionEvent event) {
-        total = total.multiply(BigDecimal.valueOf(-1L));
-        totalString = total.toString();
-        label.setText(totalString);
+    private void press8() {
+        updateCurrentLabel('8');
     }
+
     @FXML
-    private void pressComma(ActionEvent event) {
-        if(!totalString.contains(",")) {
-            totalString += ',';
-            label.setText(totalString);
-            total = total.multiply(BigDecimal.valueOf(1.0));
+    private void press9() {
+        updateCurrentLabel('9');
+    }
+
+    @FXML
+    private void press0() {
+        updateCurrentLabel('0');
+    }
+
+    @FXML
+    private void pressPlusMinus() {
+        isNegative = !isNegative;
+        currentLabel.setText(getCurrentValue());
+    }
+
+    @FXML
+    private void pressComma() {
+        if (!currentOutput.contains(",")) {
+            updateCurrentLabel(DECIMAL_SEPARATOR);
         }
     }
+
     @FXML
-    private void pressEquals(ActionEvent event) {
+    private void pressEquals() {
+        reset = true;
+        BigInteger literal1 = new BigInteger(previousLabel.getText().substring(0, previousLabel.getText().length() - 1));
+        BigInteger literal2 = new BigInteger(currentOutput);
+        BigInteger result = null;
+        Operation operation;
+
+        if (previousLabel.getText().endsWith("+")) {
+            operation = Operation.SUM;
+        } else if (previousLabel.getText().endsWith("-")) {
+            operation = Operation.SUBTRACT;
+        } else if (previousLabel.getText().endsWith("×")) {
+            operation = Operation.MULTIPLY;
+        } else {
+            operation = Operation.DIVIDE;
+        }
+
+        if (operation == Operation.SUM) {
+            result = literal1.add(literal2);
+        } else if (operation == Operation.SUBTRACT) {
+            result = literal1.subtract(literal2);
+        } else if (operation ==  Operation.MULTIPLY) {
+            result = literal1.multiply(literal2);
+        } else if (operation == Operation.DIVIDE) {
+            result = literal1.divide(literal2);
+        }
+
+        currentOutput = result.toString();
+        currentLabel.setText(currentOutput);
+        previousLabel.setText("");
+    }
+
+    @FXML
+    private void pressMultiply() {
+        reset = true;
+        previousLabel.setText(currentLabel.getText() + '×');
+    }
+
+    @FXML
+    private void pressDivide() {
+        reset = true;
+        previousLabel.setText(currentLabel.getText() + '÷');
+    }
+
+    @FXML
+    private void pressSum() {
+        reset = true;
+        previousLabel.setText(currentLabel.getText() + '+');
+    }
+
+    @FXML
+    private void pressSubtract() {
+        reset = true;
+        previousLabel.setText(currentLabel.getText() + '-');
+    }
+
+    @FXML
+    private void pressDivideOneByX() {
 
     }
+
     @FXML
-    private void pressMultiply(ActionEvent event) {
+    private void pressSquare() {
 
     }
+
     @FXML
-    private void pressDivide(ActionEvent event) {
+    private void pressSquareRoot() {
 
     }
+
     @FXML
-    private void pressSum(ActionEvent event) {
+    private void pressPercent() {
 
     }
+
     @FXML
-    private void pressSubtract(ActionEvent event) {
+    private void pressClear() {
 
     }
+
     @FXML
-    private void pressDivideOneByX(ActionEvent event) {
+    private void pressClearAll() {
 
     }
+
     @FXML
-    private void pressSquare(ActionEvent event) {
+    private void pressBackspace() {
 
     }
-    @FXML
-    private void pressSquareRoot(ActionEvent event) {
 
+    private void updateCurrentLabel(char toAdd) {
+        if (reset) {
+            currentOutput = String.valueOf(toAdd);
+            reset = false;
+            currentLabel.setText(currentOutput);
+            return;
+        }
+        if (currentOutput.length() < 16) {
+            if (currentOutput.equals("0")) {
+                currentOutput = "";
+            }
+            currentOutput += toAdd;
+            currentLabel.setText(currentOutput);
+        }
     }
-    @FXML
-    private void pressPercent(ActionEvent event) {
 
+    private String getCurrentValue() {
+        return isNegative ? '-' + currentOutput : currentOutput;
     }
-    @FXML
-    private void pressClear(ActionEvent event) {
 
-    }
-    @FXML
-    private void pressClearAll(ActionEvent event) {
-
-    }
-    @FXML
-    private void pressBackspace(ActionEvent event) {
-
-    }
 }
