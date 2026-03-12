@@ -5,7 +5,6 @@ public enum Operation {
     MULTIPLY,
     SUM,
     SUBTRACT,
-    ONE_DIVIDE_BY,
     SQUARE,
     SQUARE_ROOT,
     PERCENT

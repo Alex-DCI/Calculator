@@ -25,77 +25,104 @@ public class CalculatorController {
 
     @FXML
     public void initialize() {
+
         commaButton.setText(String.valueOf(DECIMAL_SEPARATOR));
+
     }
 
     @FXML
     private void press1() {
+
         updateCurrentLabel('1');
+
     }
 
     @FXML
     private void press2() {
+
         updateCurrentLabel('2');
+
     }
 
     @FXML
     private void press3() {
+
         updateCurrentLabel('3');
+
     }
 
     @FXML
     private void press4() {
+
         updateCurrentLabel('4');
+
     }
 
     @FXML
     private void press5() {
+
         updateCurrentLabel('5');
+
     }
 
     @FXML
     private void press6() {
+
         updateCurrentLabel('6');
+
     }
 
     @FXML
     private void press7() {
+
         updateCurrentLabel('7');
+
     }
 
     @FXML
     private void press8() {
+
         updateCurrentLabel('8');
+
     }
 
     @FXML
     private void press9() {
+
         updateCurrentLabel('9');
+
     }
 
     @FXML
     private void press0() {
+
         updateCurrentLabel('0');
+
     }
 
     @FXML
     private void pressPlusMinus() {
+
         isNegative = !isNegative;
         currentLabel.setText(getCurrentValue());
+
     }
 
     @FXML
     private void pressComma() {
-        if (!currentOutput.contains(",")) {
+
+        if (!currentOutput.contains(String.valueOf(DECIMAL_SEPARATOR))) {
             updateCurrentLabel(DECIMAL_SEPARATOR);
         }
+
     }
 
     @FXML
     private void pressEquals() {
+
         reset = true;
-        BigDecimal literal1 = new BigDecimal(previousLabel.getText().substring(0, previousLabel.getText().length() - 1));
-        BigDecimal literal2 = new BigDecimal(currentOutput);
+        BigDecimal literal1 = new BigDecimal(previousLabel.getText().substring(0, previousLabel.getText().length() - 1).replace(',', '.'));
+        BigDecimal literal2 = new BigDecimal(currentOutput.replace(',', '.'));
         BigDecimal result = null;
         Operation operation;
 
@@ -122,39 +149,58 @@ public class CalculatorController {
         currentOutput = result.toString();
         currentLabel.setText(currentOutput);
         previousLabel.setText("");
+
     }
 
     @FXML
     private void pressMultiply() {
+
         reset = true;
         previousLabel.setText(currentLabel.getText() + '×');
+
     }
 
     @FXML
     private void pressDivide() {
+
         reset = true;
         previousLabel.setText(currentLabel.getText() + '÷');
+
     }
 
     @FXML
     private void pressSum() {
+
         reset = true;
         previousLabel.setText(currentLabel.getText() + '+');
+
     }
 
     @FXML
     private void pressSubtract() {
+
         reset = true;
         previousLabel.setText(currentLabel.getText() + '-');
+
     }
 
     @FXML
     private void pressDivideOneByX() {
 
+        reset = true;
+        BigDecimal result = BigDecimal.ONE.divide(new BigDecimal(currentOutput.replace(',', '.')), 15, RoundingMode.HALF_UP);
+        currentLabel.setText(result.stripTrailingZeros().toString());
+        previousLabel.setText("");
+
     }
 
     @FXML
     private void pressSquare() {
+
+        reset = true;
+        BigDecimal literal = new BigDecimal(currentOutput.replace(',', '.'));
+        currentLabel.setText(literal.multiply(literal).stripTrailingZeros().toString());
+        previousLabel.setText("");
 
     }
 
@@ -184,23 +230,25 @@ public class CalculatorController {
     }
 
     private void updateCurrentLabel(char toAdd) {
+
         if (reset) {
             currentOutput = String.valueOf(toAdd);
             reset = false;
             currentLabel.setText(currentOutput);
-            return;
-        }
-        if (currentOutput.length() < 16) {
+        } else if (currentOutput.length() < 16) {
             if (currentOutput.equals("0")) {
                 currentOutput = "";
             }
             currentOutput += toAdd;
             currentLabel.setText(currentOutput);
         }
+
     }
 
     private String getCurrentValue() {
+
         return isNegative ? '-' + currentOutput : currentOutput;
+
     }
 
 }
