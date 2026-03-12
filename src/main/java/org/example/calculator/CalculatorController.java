@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
@@ -92,9 +94,9 @@ public class CalculatorController {
     @FXML
     private void pressEquals() {
         reset = true;
-        BigInteger literal1 = new BigInteger(previousLabel.getText().substring(0, previousLabel.getText().length() - 1));
-        BigInteger literal2 = new BigInteger(currentOutput);
-        BigInteger result = null;
+        BigDecimal literal1 = new BigDecimal(previousLabel.getText().substring(0, previousLabel.getText().length() - 1));
+        BigDecimal literal2 = new BigDecimal(currentOutput);
+        BigDecimal result = null;
         Operation operation;
 
         if (previousLabel.getText().endsWith("+")) {
@@ -114,7 +116,7 @@ public class CalculatorController {
         } else if (operation ==  Operation.MULTIPLY) {
             result = literal1.multiply(literal2);
         } else if (operation == Operation.DIVIDE) {
-            result = literal1.divide(literal2);
+            result = literal1.divide(literal2, new MathContext(15, RoundingMode.HALF_UP)).stripTrailingZeros();
         }
 
         currentOutput = result.toString();
