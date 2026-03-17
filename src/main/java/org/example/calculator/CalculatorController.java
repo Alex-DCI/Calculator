@@ -16,6 +16,7 @@ public class CalculatorController {
     private final char DECIMAL_SEPARATOR = new DecimalFormatSymbols(Locale.getDefault()).getDecimalSeparator();
     private boolean isNegative = false;
     private boolean reset = false;
+    private final MathContext mathContext = new MathContext(30, RoundingMode.HALF_UP);
 
     @FXML
     Label currentLabel, previousLabel;
@@ -132,9 +133,9 @@ public class CalculatorController {
             operation = Operation.SUBTRACT;
         } else if (previousLabel.getText().endsWith("×")) {
             operation = Operation.MULTIPLY;
-        } else {
+        } else if (previousLabel.getText().endsWith("÷")) {
             operation = Operation.DIVIDE;
-        }
+        } else operation = Operation.PERCENT;
 
         if (operation == Operation.SUM) {
             result = literal1.add(literal2);
@@ -143,10 +144,13 @@ public class CalculatorController {
         } else if (operation ==  Operation.MULTIPLY) {
             result = literal1.multiply(literal2);
         } else if (operation == Operation.DIVIDE) {
-            result = literal1.divide(literal2, new MathContext(15, RoundingMode.HALF_UP)).stripTrailingZeros();
+            result = literal1.divide(literal2, mathContext).stripTrailingZeros();
+        } else if (operation == Operation.PERCENT) {
+            result = literal1.divide(new BigDecimal(100), mathContext).stripTrailingZeros();
+            result = result.multiply(literal2);
         }
 
-        currentOutput = result.toString();
+        currentOutput = result.stripTrailingZeros().toPlainString();
         currentLabel.setText(currentOutput);
         previousLabel.setText("");
 
@@ -188,8 +192,9 @@ public class CalculatorController {
     private void pressDivideOneByX() {
 
         reset = true;
-        BigDecimal result = BigDecimal.ONE.divide(new BigDecimal(currentOutput.replace(',', '.')), 15, RoundingMode.HALF_UP);
-        currentLabel.setText(result.stripTrailingZeros().toString());
+        BigDecimal result = BigDecimal.ONE.divide(new BigDecimal(currentOutput.replace(',', '.')), mathContext);
+        currentOutput = result.stripTrailingZeros().toString();
+        currentLabel.setText(currentOutput);
         previousLabel.setText("");
 
     }
@@ -199,19 +204,25 @@ public class CalculatorController {
 
         reset = true;
         BigDecimal literal = new BigDecimal(currentOutput.replace(',', '.'));
-        currentLabel.setText(literal.multiply(literal).stripTrailingZeros().toString());
+        currentOutput = literal.multiply(literal).stripTrailingZeros().toString();
+        currentLabel.setText(currentOutput);
         previousLabel.setText("");
 
     }
 
     @FXML
     private void pressSquareRoot() {
-
+        reset = true;
+        BigDecimal literal = new BigDecimal(currentOutput.replace(',', '.'));
+        currentOutput = literal.sqrt(mathContext).stripTrailingZeros().toString();
+        currentLabel.setText(currentOutput);
+        previousLabel.setText("");
     }
 
     @FXML
     private void pressPercent() {
-
+        reset = true;
+        previousLabel.setText(currentLabel.getText() + '%');
     }
 
     @FXML
