@@ -227,12 +227,14 @@ public class CalculatorController {
 
     @FXML
     private void pressClear() {
-
+        pressClearEntry();
+        previousLabel.setText("");
     }
 
     @FXML
-    private void pressClearAll() {
-
+    private void pressClearEntry() {
+        currentLabel.setText("0");
+        currentOutput = "0";
     }
 
     @FXML
