@@ -165,24 +165,16 @@
          <Font size="20.0" />
       </font>
    </Label>
-    <HBox layoutX="3.0" layoutY="157.0" prefHeight="35.0" prefWidth="336.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0">
-        <Button disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0"
-                style="-fx-background-color: #f4f4f4;" text="MC"/>
-        <Button disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0"
-                style="-fx-background-color: #f4f4f4;" text="MR"/>
-        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;"
-                text="M+"/>
-        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;"
-                text="M-"/>
-        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;"
-                text="MS"/>
-        <MenuButton alignment="CENTER_RIGHT" contentDisplay="TOP" disable="true" mnemonicParsing="false"
-                    prefHeight="52.0" prefWidth="55.0" style="-fx-background-color: #f4f4f4;" text="M"
-                    textAlignment="RIGHT">
+    <HBox layoutX="3.0" layoutY="157.0" prefHeight="35.0" prefWidth="336.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Button fx:id="mCButton" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;" text="MC" />
+        <Button fx:id="mRButton" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;" text="MR" />
+        <Button fx:id="mPlusButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;" text="M+" />
+        <Button fx:id="mMinusButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;" text="M-" />
+        <Button fx:id="mSButton" mnemonicParsing="false" prefHeight="49.0" prefWidth="56.0" style="-fx-background-color: #f4f4f4;" text="MS" />
+        <MenuButton fx:id="memoryMenuButton" alignment="CENTER_RIGHT" contentDisplay="TOP" disable="true" mnemonicParsing="false" prefHeight="52.0" prefWidth="55.0" style="-fx-background-color: #f4f4f4;" text="M" textAlignment="RIGHT">
             <items>
-                <MenuItem mnemonicParsing="false" text="Action 1"/>
-                <MenuItem mnemonicParsing="false" text="Action 2"/>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
             </items>
         </MenuButton>
     </HBox>

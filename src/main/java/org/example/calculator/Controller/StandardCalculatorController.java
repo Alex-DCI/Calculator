@@ -1,8 +1,8 @@
 package org.example.calculator.Controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.util.Duration;
 import org.example.calculator.Operation;
 
 import java.math.BigDecimal;
@@ -26,9 +26,21 @@ public class StandardCalculatorController {
     Button commaButton;
 
     @FXML
+    Button mCButton, mRButton, mPlusButton, mMinusButton, mSButton;
+
+    @FXML
+    MenuButton memoryMenuButton;
+
+    @FXML
     public void initialize() {
 
         commaButton.setText(String.valueOf(DECIMAL_SEPARATOR));
+        setTooltip(mCButton, "Clear all memory");
+        setTooltip(mRButton, "Memory recall");
+        setTooltip(mPlusButton, "Memory add");
+        setTooltip(mMinusButton, "Memory subtract");
+        setTooltip(mSButton, "Memory store");
+        setTooltip(memoryMenuButton, "Memory");
 
     }
 
@@ -269,4 +281,9 @@ public class StandardCalculatorController {
 
     }
 
+    private void setTooltip(ButtonBase button, String text) {
+        Tooltip tooltip = new Tooltip(text);
+        tooltip.setShowDelay(Duration.millis(500));
+        button.setTooltip(tooltip);
+    }
 }
