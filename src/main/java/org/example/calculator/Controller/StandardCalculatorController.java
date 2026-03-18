@@ -1,8 +1,9 @@
-package org.example.calculator;
+package org.example.calculator.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.example.calculator.Operation;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -10,7 +11,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-public class CalculatorController {
+public class StandardCalculatorController {
 
     private String currentOutput = "0";
     private final char DECIMAL_SEPARATOR = new DecimalFormatSymbols(Locale.getDefault()).getDecimalSeparator();
@@ -124,7 +125,7 @@ public class CalculatorController {
         reset = true;
         BigDecimal literal1 = new BigDecimal(previousLabel.getText().substring(0, previousLabel.getText().length() - 1).replace(',', '.'));
         BigDecimal literal2 = new BigDecimal(currentOutput.replace(',', '.'));
-        BigDecimal result = null;
+        BigDecimal result;
         Operation operation;
 
         if (previousLabel.getText().endsWith("+")) {
@@ -145,7 +146,7 @@ public class CalculatorController {
             result = literal1.multiply(literal2);
         } else if (operation == Operation.DIVIDE) {
             result = literal1.divide(literal2, mathContext).stripTrailingZeros();
-        } else if (operation == Operation.PERCENT) {
+        } else {
             result = literal1.divide(new BigDecimal(100), mathContext).stripTrailingZeros();
             result = result.multiply(literal2);
         }
@@ -239,7 +240,11 @@ public class CalculatorController {
 
     @FXML
     private void pressBackspace() {
-
+        currentOutput = currentOutput.substring(0, currentOutput.length() - 1);
+        if (currentOutput.isEmpty()) {
+            currentOutput = "0";
+        }
+        currentLabel.setText(currentOutput);
     }
 
     private void updateCurrentLabel(char toAdd) {

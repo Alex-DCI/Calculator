@@ -8,4 +8,6 @@ module org.example.calculator {
 
     opens org.example.calculator to javafx.fxml;
     exports org.example.calculator;
+    exports org.example.calculator.Controller;
+    opens org.example.calculator.Controller to javafx.fxml;
 }
