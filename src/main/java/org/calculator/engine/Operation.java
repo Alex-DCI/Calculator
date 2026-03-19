@@ -1,11 +1,11 @@
-package org.example.calculator;
+package org.calculator.engine;
 
 public enum Operation {
     DIVIDE,
     MULTIPLY,
-    SUM,
+    ADD,
     SUBTRACT,
     SQUARE,
-    SQUARE_ROOT,
+    SQRT,
     PERCENT
 }

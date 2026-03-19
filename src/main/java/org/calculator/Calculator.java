@@ -1,4 +1,4 @@
-package org.example.calculator;
+package org.calculator;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

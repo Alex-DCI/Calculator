@@ -1,4 +1,4 @@
-module org.example.calculator {
+module org.calculator {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -6,8 +6,10 @@ module org.example.calculator {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens org.example.calculator to javafx.fxml;
-    exports org.example.calculator;
-    exports org.example.calculator.Controller;
-    opens org.example.calculator.Controller to javafx.fxml;
+    opens org.calculator to javafx.fxml;
+    exports org.calculator;
+    exports org.calculator.engine.controller;
+    opens org.calculator.engine.controller to javafx.fxml;
+    exports org.calculator.engine;
+    opens org.calculator.engine to javafx.fxml;
 }
